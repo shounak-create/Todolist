@@ -20,3 +20,14 @@ export const gettodo = async (req,res)=>{
         return res.status(500).json(e.message)
     }
 }
+
+export const deletetodo = async (req,res)=>{
+    // console.log(req.body.data)
+    try{
+        const { data } = req.body;
+        const index = await Todo.findByIdAndDelete(data);
+        return response.status(200).json(index);
+    } catch(e){
+        return res.status(500).json(e.message);
+    }
+}
