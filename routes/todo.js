@@ -6,6 +6,7 @@ const route = express.Router();
 
 route.post('/addtodo',todos.addtodo);
 route.get('/gettodos',todos.gettodo);
-route.post('/deletetodo',todos.deletetodo);
+route.delete('/deletetodo/:id',todos.deletetodo);
+route.put('/completetask',todos.completetask)
 
 export default route

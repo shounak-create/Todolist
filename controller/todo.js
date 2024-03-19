@@ -4,6 +4,7 @@ export const addtodo = async (req,res)=>{
     try{
         const newTodo = await Todo.create({
             data:req.body.data,
+            completed:req.body.completed
         })
         await newTodo.save();
         return res.status(200).json(newTodo)
@@ -24,10 +25,23 @@ export const gettodo = async (req,res)=>{
 export const deletetodo = async (req,res)=>{
     // console.log(req.body.data)
     try{
-        const { data } = req.body;
-        const index = await Todo.findByIdAndDelete(data);
+        const id = req.params.id
+        const index = await Todo.findByIdAndDelete(id);
         return response.status(200).json(index);
     } catch(e){
         return res.status(500).json(e.message);
+    }
+}
+
+export const completetask = async (req,res)=>{
+    try{
+        const boolean_value = req.body.data
+        const index = await Todo.findByIdAndUpdate(boolean_value, { completed: true }, { new: true })
+        if (!index) {
+            return res.status(404).json({ error: 'Task not found' });
+        }
+        return res.status(200).json(index);
+    } catch(e){
+        console.log(e.message);
     }
 }
