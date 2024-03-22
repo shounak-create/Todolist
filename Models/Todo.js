@@ -21,6 +21,26 @@ const TodoSchema = new mongoose.Schema({
     // },
 })
 
-const todo = mongoose.model('todo', TodoSchema);
+const UserSchema = new mongoose.Schema({
+    username: {
+        type: String,
+        required: true
+    },
+    password:{
+        type: String,
+        required:true,
+    },
+    createdAt: {
+        type: Date,
+        default: Date.now()
+    }
+    // done: {
+    //     type: Boolean,
+    //     default: false
+    // },
+})
 
-export default todo;
+const todo = mongoose.model('todo', TodoSchema);
+const user = mongoose.model('user', UserSchema);
+
+export default {todo,user};

@@ -1,4 +1,5 @@
 import Todo from '../Models/Todo.js'
+import User from '../Models/Todo.js'
 
 export const addtodo = async (req,res)=>{
     try{
@@ -42,6 +43,28 @@ export const completetask = async (req,res)=>{
         }
         return res.status(200).json(index);
     } catch(e){
-        console.log(e.message);
+        return res.status(500).json(e.message);
+    }
+}
+
+export const signup = async (req,res)=>{
+    try{
+        const newuser = await User.create({
+            username: req.body.username,
+            password:req.body.password
+        });
+        newuser.save();
+        return res.status(200).json(newuser)
+    } catch(e){
+        return res.status(500).json(e.message);
+    }
+}
+
+export const login = async (req,res) =>{
+    try{
+        const finduser = await User.find(req.body.username);
+        return res.status(200).json(finduser)
+    } catch(e){
+        return res.status(500).json(e.message);
     }
 }
